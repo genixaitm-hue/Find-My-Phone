@@ -1,0 +1,66 @@
+<Window
+    x:Class="FindMyPhone.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:FindMyPhone.App.ViewModels"
+    xmlns:models="using:FindMyPhone.Core.Models"
+    xmlns:converters="using:FindMyPhone.App.Converters"
+    mc:Ignorable="d"
+    Title="Find My Phone">
+
+    <Grid Padding="24" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,0,0,16">
+            <TextBlock Text="📡 Find My Phone" Style="{ThemeResource TitleLargeTextBlockStyle}" VerticalAlignment="Center"/>
+            <Button Content="{Binding IsScanning, Converter={StaticResource BoolToScanTextConverter}}" 
+                    Command="{Binding ToggleScanCommand}" 
+                    Style="{ThemeResource AccentButtonStyle}"/>
+            <TextBlock Text="{Binding StatusText}" VerticalAlignment="Center" 
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- Device Grid -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsRepeater ItemsSource="{Binding Devices}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout MinItemWidth="300" MinItemHeight="150" ItemsStretch="Fill"/>
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="models:DeviceRecord">
+                        <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" 
+                                CornerRadius="8" Padding="16" Margin="8"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="{Binding Name}" Style="{ThemeResource SubtitleTextBlockStyle}" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Text="{Binding Category}" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <TextBlock Text="📶" FontSize="16"/>
+                                    <TextBlock Text="{Binding AverageRssi, StringFormat='{}{0} dBm'}" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="{Binding AverageRssi, Converter={StaticResource RssiToBrushConverter}}"/>
+                                    <TextBlock Text="{Binding EstimatedDistanceMeters, Converter={StaticResource DistanceToLabelConverter}}" 
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Trend}" Foreground="{ThemeResource SystemAccentColor}"/>
+                                <ProgressBar Value="{Binding Confidence}" Maximum="1" Height="4" CornerRadius="2"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+
+        <!-- Reality Warning -->
+        <InfoBar Grid.Row="2" IsOpen="True" Severity="Warning" Title="Bluetooth Limitation" 
+                 Message="RSSI is a proximity estimate, not exact distance. Walls, metal, and bodies heavily attenuate signals. Direction cannot be determined with one adapter." 
+                 IsClosable="False" Margin="0,16,0,0"/>
+    </Grid>
+</Window>

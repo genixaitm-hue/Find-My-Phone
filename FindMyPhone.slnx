@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="FindMyPhone.App/FindMyPhone.App.csproj" />
+  <Project Path="FindMyPhone.Bluetooth/FindMyPhone.Bluetooth.csproj" />
+  <Project Path="FindMyPhone.Core/FindMyPhone.Core.csproj" />
+  <Project Path="FindMyPhone.Infrastructure/FindMyPhone.Infrastructure.csproj" />
+  <Project Path="FindMyPhone.Tests/FindMyPhone.Tests.csproj" />
+</Solution>
