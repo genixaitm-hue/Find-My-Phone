@@ -4,7 +4,7 @@ use std::time::Duration;
 use tokio::time;
 use tauri::{Emitter, AppHandle};
 use crate::bluetooth::models::{BluetoothDevice, DeviceWithRSSI, RSSIEntry};
-use crate::bluetooth::state::AppState;
+use crate::bluetooth::AppState;
 
 pub struct BluetoothScanner {
     manager: Option<Manager>,

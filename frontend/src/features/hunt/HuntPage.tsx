@@ -7,7 +7,6 @@ export function HuntPage() {
     huntTargetId, 
     devices, 
     isHunting,
-    settings,
     setHuntTarget,
     toggleHunting,
     addToHistory,
@@ -16,7 +15,7 @@ export function HuntPage() {
   const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isHunting) {
       interval = setInterval(() => {
         setElapsedTime((t) => t + 1);

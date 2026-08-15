@@ -3,9 +3,9 @@ import { useDeviceStore } from '../../stores/deviceStore';
 import { Radar as RadarIcon, AlertTriangle } from 'lucide-react';
 
 export function RadarPage() {
-  const { huntTargetId, devices, settings } = useDeviceStore();
+  const { huntTargetId, devices } = useDeviceStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
 
   const targetDevice = huntTargetId ? devices.get(huntTargetId) : null;
 

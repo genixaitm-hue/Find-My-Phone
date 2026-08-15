@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import type { 
   DeviceWithRSSI, 
-  HuntState, 
   FilterOptions, 
   Settings, 
   HistoryEntry,
