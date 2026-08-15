@@ -1,5 +1,5 @@
 import { useDeviceStore } from '../../stores/deviceStore';
-import { Settings as SettingsIcon, Moon, Sun, Monitor, Volume2, VolumeX, Signal } from 'lucide-react';
+import { Moon, Sun, Monitor, Volume2, Signal } from 'lucide-react';
 
 export function SettingsPage() {
   const { settings, updateSettings } = useDeviceStore();

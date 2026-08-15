@@ -1,9 +1,10 @@
 pub mod models;
+pub mod scanner;
 
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::RwLock;
-use crate::bluetooth::models::{BluetoothDevice, DeviceWithRSSI, RSSIEntry, Settings};
+use crate::bluetooth::models::{BluetoothDevice, DeviceWithRSSI, RSSIEntry, Settings, HistoryEntry};
 
 /// Application state shared across Tauri commands
 #[derive(Clone)]
@@ -13,7 +14,7 @@ pub struct AppState {
     pub adapter_status: Arc<RwLock<String>>,
     pub hunt_target: Arc<RwLock<Option<String>>>,
     pub is_hunting: Arc<RwLock<bool>>,
-    pub history: Arc<RwLock<Vec<crate::bluetooth::models::HistoryEntry>>>,
+    pub history: Arc<RwLock<Vec<HistoryEntry>>>,
     pub settings: Arc<RwLock<Settings>>,
 }
 
